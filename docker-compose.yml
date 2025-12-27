@@ -1,0 +1,9 @@
+services:
+  # PostgreSQL database
+  db:
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: changeinprod!

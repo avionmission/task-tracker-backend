@@ -3,7 +3,7 @@ package com.avionmission.tasks.domain.dto;
 import java.util.List;
 import java.util.UUID;
 
-public record TaskListDTO(
+public record TaskListDto(
         UUID id,
         String title,
         String description,

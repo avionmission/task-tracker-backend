@@ -1,11 +1,10 @@
 package com.avionmission.tasks.controllers;
 
 import com.avionmission.tasks.domain.dto.TaskListDto;
+import com.avionmission.tasks.domain.entities.TaskList;
 import com.avionmission.tasks.mappers.TaskListMapper;
 import com.avionmission.tasks.services.TaskListService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +31,13 @@ public class TaskListController {
     @GetMapping("/test")
     public String test() {
         return "ALL OK!!";
+    }
+
+    @PostMapping
+    public  TaskListDto createTaskList(@RequestBody TaskListDto taskListDto) {
+        TaskList createdTaskList = taskListService.createTaskList(
+                taskListMapper.fromDto(taskListDto)
+        );
+        return  taskListMapper.toDto(createdTaskList);
     }
 }

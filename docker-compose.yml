@@ -7,3 +7,5 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: changeinprod!
+
+# Command to access postgres shell in local terminal: psql -h localhost -p 5433 -U postgres

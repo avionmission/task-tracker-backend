@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TaskServiceImpl  implements TaskService {
+public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
     private final TaskListRepository taskListRepository;
@@ -55,5 +55,10 @@ public class TaskServiceImpl  implements TaskService {
         );
 
         return taskRepository.save(taskToSave);
+    }
+
+    @Override
+    public Optional<Task> getTask(UUID taskListId, UUID taskId) {
+        return taskRepository.findByTaskListIdAndId(taskListId, taskId);
     }
 }

@@ -38,7 +38,11 @@ EXPOSE 8080
 CMD echo "=== Railway Environment Debug ===" && \
     echo "PORT: $PORT" && \
     echo "DATABASE_URL set: $([ -n "$DATABASE_URL" ] && echo "YES (${#DATABASE_URL} chars)" || echo "NO")" && \
-    echo "DATABASE_URL starts with: $(echo $DATABASE_URL | cut -c1-20)..." && \
+    echo "PGHOST: $PGHOST" && \
+    echo "PGPORT: $PGPORT" && \
+    echo "PGDATABASE: $PGDATABASE" && \
+    echo "PGUSER: $PGUSER" && \
+    echo "PGPASSWORD set: $([ -n "$PGPASSWORD" ] && echo "YES" || echo "NO")" && \
     echo "SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE" && \
     echo "JWT_SECRET set: $([ -n "$JWT_SECRET" ] && echo "YES (${#JWT_SECRET} chars)" || echo "NO")" && \
     echo "Java version: $(java -version 2>&1 | head -1)" && \

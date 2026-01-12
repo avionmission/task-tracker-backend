@@ -122,12 +122,6 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @Override
     public Task updateTask(UUID taskListId, UUID taskId, Task task) {
-        if(null == task.getId()){
-            throw new IllegalArgumentException("Task must have an ID!");
-        }
-        if(!Objects.equals(taskId, task.getId())) {
-            throw new IllegalArgumentException("Task ids do not match");
-        }
         if(null == task.getPriority()) {
             throw new IllegalArgumentException("Task must have a valid priority");
         }
@@ -136,6 +130,9 @@ public class TaskServiceImpl implements TaskService {
         }
         Task existingTask = taskRepository.findByTaskListIdAndId(taskListId, taskId)
                 .orElseThrow(() -> new IllegalArgumentException("Task not found!"));
+        
+        // Set the ID from the URL parameter to ensure consistency
+        task.setId(taskId);
         
         existingTask.setTitle(task.getTitle());
         existingTask.setDescription(task.getDescription());
@@ -150,12 +147,6 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @Override
     public Task updateTaskByUser(UUID taskListId, UUID taskId, Task task, User user) {
-        if(null == task.getId()){
-            throw new IllegalArgumentException("Task must have an ID!");
-        }
-        if(!Objects.equals(taskId, task.getId())) {
-            throw new IllegalArgumentException("Task ids do not match");
-        }
         if(null == task.getPriority()) {
             throw new IllegalArgumentException("Task must have a valid priority");
         }
@@ -169,6 +160,9 @@ public class TaskServiceImpl implements TaskService {
         
         Task existingTask = taskRepository.findByTaskListIdAndId(taskListId, taskId)
                 .orElseThrow(() -> new IllegalArgumentException("Task not found!"));
+        
+        // Set the ID from the URL parameter to ensure consistency
+        task.setId(taskId);
         
         existingTask.setTitle(task.getTitle());
         existingTask.setDescription(task.getDescription());

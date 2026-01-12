@@ -34,18 +34,18 @@ COPY --from=builder /app/target/tasks-0.0.1-SNAPSHOT.jar app.jar
 # Expose port
 EXPOSE 8080
 
-# Run the application directly with environment variable debugging
-CMD echo "=== Environment Debug ===" && \
+# Run the application directly with comprehensive debugging
+CMD echo "=== Railway Environment Debug ===" && \
     echo "PORT: $PORT" && \
-    echo "DATABASE_URL set: $([ -n "$DATABASE_URL" ] && echo "YES" || echo "NO")" && \
-    echo "PGHOST: $PGHOST" && \
-    echo "PGPORT: $PGPORT" && \
-    echo "PGDATABASE: $PGDATABASE" && \
-    echo "PGUSER: $PGUSER" && \
+    echo "DATABASE_URL set: $([ -n "$DATABASE_URL" ] && echo "YES (${#DATABASE_URL} chars)" || echo "NO")" && \
+    echo "DATABASE_URL starts with: $(echo $DATABASE_URL | cut -c1-20)..." && \
     echo "SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE" && \
-    echo "JWT_SECRET set: $([ -n "$JWT_SECRET" ] && echo "YES" || echo "NO")" && \
-    echo "=========================" && \
+    echo "JWT_SECRET set: $([ -n "$JWT_SECRET" ] && echo "YES (${#JWT_SECRET} chars)" || echo "NO")" && \
+    echo "Java version: $(java -version 2>&1 | head -1)" && \
+    echo "Starting Spring Boot application..." && \
+    echo "=================================" && \
     java -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-railway} \
          -Dserver.port=${PORT:-8080} \
          -Djava.security.egd=file:/dev/./urandom \
+         -Dlogging.level.org.springframework.boot=INFO \
          -jar app.jar

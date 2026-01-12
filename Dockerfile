@@ -22,8 +22,8 @@ RUN mvn clean package -DskipTests
 # Runtime stage
 FROM eclipse-temurin:17-jre-alpine
 
-# Add a non-root user
-RUN addgroup -g 1001 -S spring && adduser -u 1001 -S spring -G spring
+# Install curl for debugging
+RUN apk add --no-cache curl
 
 # Set working directory
 WORKDIR /app
@@ -31,18 +31,12 @@ WORKDIR /app
 # Copy the jar from builder stage
 COPY --from=builder /app/target/tasks-0.0.1-SNAPSHOT.jar app.jar
 
-# Change ownership to spring user
-RUN chown spring:spring app.jar
-
-# Switch to non-root user
-USER spring
+# Copy startup script
+COPY start.sh start.sh
+RUN chmod +x start.sh
 
 # Expose port
 EXPOSE 8080
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1
-
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run the application with startup script
+ENTRYPOINT ["./start.sh"]

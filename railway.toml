@@ -2,7 +2,6 @@
 builder = "dockerfile"
 
 [deploy]
-healthcheckPath = "/actuator/health"
-healthcheckTimeout = 600
+# healthcheckPath = "/actuator/health"
+# healthcheckTimeout = 600
 restartPolicyType = "on_failure"
-startCommand = "java -jar target/tasks-0.0.1-SNAPSHOT.jar"

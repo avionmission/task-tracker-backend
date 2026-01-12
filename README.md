@@ -46,14 +46,6 @@ npm run dev
 ```
 The frontend will be available at `http://localhost:5173`
 
-## Deployment
-
-See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions including:
-- Local Docker setup
-- Free deployment options (Railway, Render)
-- Production configuration
-- GitHub Pages frontend integration
-
 ## API Documentation
 
 Swagger UI is available at: `http://localhost:8080/swagger-ui.html`

@@ -14,12 +14,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleException(
             RuntimeException ex, WebRequest request
     ) {
-        ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.BAD_REQUEST.value(),
-                ex.getMessage(),
-                request.getDescription(false)
-        );
-
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }

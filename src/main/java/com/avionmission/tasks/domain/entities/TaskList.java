@@ -27,6 +27,10 @@ public class TaskList {
     })
     private List<Task> tasks;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(name = "created", nullable = false)
     private LocalDateTime created;
 
@@ -36,11 +40,12 @@ public class TaskList {
     public TaskList() {
     }
 
-    public TaskList(UUID id, String title, String description, List<Task> tasks, LocalDateTime created, LocalDateTime updated) {
+    public TaskList(UUID id, String title, String description, List<Task> tasks, User user, LocalDateTime created, LocalDateTime updated) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.tasks = tasks;
+        this.user = user;
         this.created = created;
         this.updated = updated;
     }
@@ -91,6 +96,14 @@ public class TaskList {
 
     public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

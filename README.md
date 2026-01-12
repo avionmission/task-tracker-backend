@@ -12,9 +12,20 @@ A full-stack task management application with built with Spring Boot and React.
 
 ## Quick Start
 
+### Using Docker (Recommended)
+```bash
+# Build and run with Docker Compose
+docker-compose up --build
+
+# Access the application
+# API: http://localhost:8080
+# Swagger UI: http://localhost:8080/swagger-ui.html
+# Database: localhost:5433
+```
+
 ### Backend (Spring Boot)
 ```bash
-# Run the backend API
+# Run the backend API locally
 ./mvnw spring-boot:run
 ```
 The API will be available at `http://localhost:8080`
@@ -34,6 +45,14 @@ npm install
 npm run dev
 ```
 The frontend will be available at `http://localhost:5173`
+
+## Deployment
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions including:
+- Local Docker setup
+- Free deployment options (Railway, Render)
+- Production configuration
+- GitHub Pages frontend integration
 
 ## API Documentation
 

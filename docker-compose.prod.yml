@@ -2,11 +2,9 @@ services:
   # PostgreSQL database
   db:
     image: postgres:15-alpine
-    ports:
-      - "5433:5432"
     restart: always
     environment:
-      POSTGRES_PASSWORD: changeinprod!
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeinprod!}
       POSTGRES_DB: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -14,9 +12,9 @@ services:
       - app-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # Spring Boot application
   app:
@@ -28,9 +26,15 @@ services:
         condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - JWT_SECRET=${JWT_SECRET:-mySecretKeyForJWTTokenGenerationThatShouldBeAtLeast256BitsLong}
     networks:
       - app-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   postgres_data:
@@ -38,5 +42,3 @@ volumes:
 networks:
   app-network:
     driver: bridge
-
-# Command to access postgres shell in local terminal: psql -h localhost -p 5433 -U postgres

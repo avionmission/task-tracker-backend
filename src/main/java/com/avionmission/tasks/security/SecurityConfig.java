@@ -62,9 +62,8 @@ public class SecurityConfig {
             "http://localhost:3000",
             "http://localhost:5173", 
             "https://tasktrackem.netlify.app",
-            "https://*.github.io",
-            "https://*.up.railway.app",
-            "https://*.railway.app"
+            "https://tasks.avionmission.com",
+            "https://task-tracker-backend-production-e210.up.railway.app"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
